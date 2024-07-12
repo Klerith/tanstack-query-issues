@@ -1,7 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { GitHubLabel } from '../interfaces/label';
-import { githubApi } from '../../api/github.api';
 import { useLabels } from '../hooks/useLabels';
+import { Loading } from '../../shared';
 
 // const getLabels = async (): Promise<GitHubLabel[]> => {
 //   const { data } = await githubApi.get<GitHubLabel[]>(`/labels`);
@@ -24,13 +22,14 @@ export const LabelPicker = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-52">
-        Cargando Labels
+        <Loading />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-wrap gap-2 justify-center">
+    // La clase animate-fadeIn sale de tailwind config
+    <div className="flex flex-wrap gap-2 justify-center animate-fadeIn">
       {labels.map((label) => (
         <span
           className="px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer"
