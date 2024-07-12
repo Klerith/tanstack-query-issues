@@ -12,7 +12,7 @@ h1 {
 }
 
 h2 {
-  @apply text-2xl font-bold;
+  @apply text-2xl font-bold text-gray-300 my-4;
 }
 
 h3 {
@@ -29,6 +29,10 @@ h5 {
 
 small {
   @apply font-thin;
+}
+
+pre {
+  @apply bg-gray-800 text-white p-4 rounded my-2 overflow-auto;
 }
 
 .btn {
