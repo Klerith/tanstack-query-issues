@@ -17,7 +17,7 @@ export const IssueComment: FC<Props> = ({ body }) => {
           />
           <span className="mx-2">Pandaiolo commented</span>
         </div>
-        <div className="p-4 text-gray-800 bg-gray-700 text-white">
+        <div className="p-4 bg-gray-700 text-white">
           <ReactMarkdown>{body}</ReactMarkdown>
         </div>
       </div>
