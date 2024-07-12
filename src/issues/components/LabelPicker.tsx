@@ -1,5 +1,6 @@
 import { useLabels } from '../hooks/useLabels';
 import { Loading } from '../../shared';
+import { FC } from 'react';
 
 // const getLabels = async (): Promise<GitHubLabel[]> => {
 //   const { data } = await githubApi.get<GitHubLabel[]>(`/labels`);
@@ -10,7 +11,12 @@ import { Loading } from '../../shared';
 //   return data;
 // };
 
-export const LabelPicker = () => {
+interface Props {
+  selectedLabels: string[];
+  onLabelSelected: (label: string) => void;
+}
+
+export const LabelPicker: FC<Props> = ({ selectedLabels, onLabelSelected }) => {
   // const labelsQuery = useQuery({
   //   queryKey: ['labels'],
   //   queryFn: getLabels,
@@ -32,12 +38,15 @@ export const LabelPicker = () => {
     <div className="flex flex-wrap gap-2 justify-center">
       {labels.map((label) => (
         <span
-          className="px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer  animate-fadeIn"
+          className={`px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer animate-fadeIn ${
+            selectedLabels.includes(label.name) ? 'selected-label' : ''
+          }`}
           style={{
             border: `1px solid #${label.color}`,
             color: `#${label.color}`,
           }}
           key={label.id}
+          onClick={() => onLabelSelected(label.name)}
         >
           {label.name}
         </span>
