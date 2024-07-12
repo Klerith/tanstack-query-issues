@@ -29,10 +29,10 @@ export const LabelPicker = () => {
 
   return (
     // La clase animate-fadeIn sale de tailwind config
-    <div className="flex flex-wrap gap-2 justify-center animate-fadeIn">
+    <div className="flex flex-wrap gap-2 justify-center">
       {labels.map((label) => (
         <span
-          className="px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer"
+          className="px-2 py-1 rounded-full text-xs font-semibold hover:bg-slate-800 cursor-pointer  animate-fadeIn"
           style={{
             border: `1px solid #${label.color}`,
             color: `#${label.color}`,
