@@ -9,7 +9,13 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import './index.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
