@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GithubIssue, State } from '../interfaces';
 import { useQueryClient } from '@tanstack/react-query';
 import { getIssue, getIssueComments } from '../actions';
+import { timeSince } from '../../helpers';
 
 interface Props {
   issue: GithubIssue;
@@ -56,7 +57,7 @@ export const IssueItem = ({ issue }: Props) => {
         </a>
         <span className="text-gray-500">
           {/* TODO: days ago */}
-          #${issue.number} opened 2 days ago by{' '}
+          #${issue.number} opened {timeSince(issue.created_at)} ago by{' '}
           <span className="font-bold">{issue.user.login}</span>
         </span>
 
