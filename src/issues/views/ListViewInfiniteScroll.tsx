@@ -4,19 +4,21 @@ import { LoaderSpiner } from '../../shared/components/loader';
 import { IssueList } from '../components/IssueList';
 import { LabelPicker } from '../components/LabelPicker';
 
-import { useIssus } from '../hooks/useIssus';
 import { State } from '../interface/Issus.interface';
+import { useIssuesInifiteScroll } from '../hooks/useIssuesInfiniteScoll';
 
-export const ListView = () => {
+export const ListViewInfinute = () => {
 	const [state, setState] = useState<State>(State.All);
 	const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
 
-	const { issusQuery, page, nexPage, prePage } = useIssus({
+	const { issusQuery } = useIssuesInifiteScroll({
 		state: state,
 		selectedLabels: selectedLabels,
 	});
 
-	const issues = issusQuery.data ?? [];
+	// [ [issues1], [issues2],[issues3],[issues4],[issues5], ] -> asi viene la data
+	const issues = issusQuery.data?.pages.flat() ?? [];
+	// [ issues1, issues2 ,issues3, issues4, issues5, ] -> con flat() aplanamos el arrglo
 
 	const onLabelSeleted = (label: string) => {
 		if (selectedLabels.includes(label)) {
@@ -32,24 +34,18 @@ export const ListView = () => {
 				{issusQuery.isLoading ? (
 					<LoaderSpiner />
 				) : (
-					<>
+					<div className='flex flex-col justify-center'>
 						<IssueList onStateChange={setState} isssues={issues} state={state} />
 						<div className='flex justify-center items-center'>
 							<button
-								onClick={prePage}
+								disabled={issusQuery.isFetchingNextPage}
+								onClick={() => issusQuery.fetchNextPage()}
 								className='p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all'
 							>
-								prev
-							</button>
-							<span className='mx-4'>{page}</span>
-							<button
-								onClick={nexPage}
-								className='p-2 bg-blue-500 rounded-md hover:bg-blue-700 transition-all'
-							>
-								nex
+								{issusQuery.isFetchingNextPage ? 'Cargando mas...' : 'Cargas mas '}
 							</button>
 						</div>
-					</>
+					</div>
 				)}
 			</div>
 
